@@ -4,13 +4,13 @@ use serde::{Deserialize, Deserializer};
 pub struct UserInfo {
     name: String,
     #[serde(deserialize_with = "deserialize_u64_from_string")]
-    nb: u64
+    nb: u32
 }
 
-fn deserialize_u64_from_string<'de, D>(deserializer: D) -> Result<u64, D::Error>
+fn deserialize_u64_from_string<'de, D>(deserializer: D) -> Result<u32, D::Error>
 where
     D: Deserializer<'de>,
 {
     let s = String::deserialize(deserializer)?;
-    s.parse::<u64>().map_err(serde::de::Error::custom)
+    s.parse::<u32>().map_err(serde::de::Error::custom)
 }
