@@ -7,6 +7,7 @@ pub mod json;
 pub mod input;
 pub mod user_info;
 pub mod trie;
+pub mod plantuml;
 
 pub fn run(){
     let mut is_loaded: bool = false;

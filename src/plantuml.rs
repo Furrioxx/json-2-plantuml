@@ -57,3 +57,19 @@ fn mock_data() -> MockNode {
 
     return zero;
 }
+
+// ici on utilise &MockNode car on veut pas que la fonction ne prenne pas la propriété de l'objet, on veut juste lire les données et pour depth on prend usize car c'est un entier positif qui repésente la profondeur.
+fn generate_line(node: &MockNode, depth: usize) {
+    let stars = "*".repeat(depth);
+    println!("{} {}", stars, node.value);
+
+    for child in &node.children {
+        generate_line(child, depth + 1);
+    }
+}
+
+pub fn test_mock() {
+    let tree = mock_data();
+
+    generate_line(&tree, 1);
+}
