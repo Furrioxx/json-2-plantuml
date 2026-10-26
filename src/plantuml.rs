@@ -59,17 +59,32 @@ fn mock_data() -> MockNode {
 }
 
 // ici on utilise &MockNode car on veut pas que la fonction ne prenne pas la propriété de l'objet, on veut juste lire les données et pour depth on prend usize car c'est un entier positif qui repésente la profondeur.
-fn generate_line(node: &MockNode, depth: usize) {
+fn generate_line(node: &MockNode, depth: usize, result: &mut String) {
     let stars = "*".repeat(depth);
-    println!("{} {}", stars, node.value);
+
+    result.push_str(&stars);
+    result.push_str(" ");
+    result.push_str(&node.value);
+    result.push_str("\n");
 
     for child in &node.children {
-        generate_line(child, depth + 1);
+        generate_line(child, depth + 1, result);
     }
 }
 
-pub fn test_mock() {
-    let tree = mock_data();
+fn generate_plantuml() -> String {
+    let mut result = String::new();
 
-    generate_line(&tree, 1);
+    result.push_str("@startmindmap\n");
+
+    let tree = mock_data();
+    generate_line(&tree, 1, &mut result);
+
+    result.push_str("@endmindmap\n");
+
+    return result;
+}
+
+pub fn test_mock() {
+    println!("{}", generate_plantuml());
 }
