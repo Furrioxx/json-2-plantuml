@@ -85,6 +85,33 @@ fn generate_plantuml() -> String {
     return result;
 }
 
+fn write_plantuml() {
+    let create_result = std::fs::create_dir_all("output");
+
+    match create_result {
+      Ok(_) => {
+          println!("Dossier output créé");
+      },
+      Err(error) => {
+          println!("Erreur : {}", error);
+          return;
+      },
+    }
+
+    let content = generate_plantuml();
+
+    let write_result = std::fs::write("output/output.puml", content);
+
+    match write_result {
+        Ok(_) => {
+            println!("Fichier PlantUML créé");
+        },
+        Err(error) => {
+            println!("Erreur : {}", error);
+        },
+    }
+}
+
 pub fn test_mock() {
-    println!("{}", generate_plantuml());
+    write_plantuml();
 }
