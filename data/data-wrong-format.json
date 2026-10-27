@@ -1,0 +1,23 @@
+[
+  { "names": "Alice Martin", "numeros": "0612345678" },
+  { "names": "Bob Dupont", "numeros": "0623456789" },
+  { "names": "Chloé Bernard", "numeros": "0734567890" },
+  { "names": "David Petit", "numeros": "0745678901" },
+  { "names": "Emma Robert", "numeros": "0156789012" },
+  { "names": "François Richard", "numeros": "0267890123" },
+  { "names": "Gabrielle Durand", "numeros": "0378901234" },
+  { "names": "Hugo Leroy", "numeros": "0472345678" },
+  { "names": "Inès Moreau", "numeros": "0583456789" },
+  { "names": "Julien Simon", "numeros": "0987654321" },
+  { "names": "SAMU", "numeros": "15" },
+  { "names": "Police secours", "numeros": "17" },
+  { "names": "Pompiers", "numeros": "18" },
+  { "names": "Numéro d'urgence européen", "numeros": "112" },
+  { "names": "Urgence personnes sourdes et malentendantes", "numeros": "114" },
+  { "names": "SAMU social", "numeros": "115" },
+  { "names": "Enfance en danger", "numeros": "119" },
+  { "names": "Enfants disparus", "numeros": "116000" },
+  { "names": "Urgences aéronautiques", "numeros": "191" },
+  { "names": "Sauvetage en mer", "numeros": "196" },
+  { "names": "Alerte attentat / alerte enlèvement", "numeros": "197" }
+]
