@@ -5,6 +5,7 @@ use crate::user_info::UserInfo;
 pub mod json;
 pub mod input;
 pub mod user_info;
+pub mod trie;
 
 pub fn run(){
     let mut is_loaded: bool = false;
