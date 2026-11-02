@@ -68,4 +68,17 @@ mod tests {
         }
         assert_eq!(name.value, "Police");
     }
+
+    #[test]
+    fn insert_multi_digit_number_should_create_one_node_per_digit() {
+        let mut root = Node::root();
+
+        root.insert("15", "SAMU");
+
+        let first = &root.children[0];
+        assert_eq!(first.value, "1");
+        let second = &first.children[0];
+        assert_eq!(second.value, "5");
+        assert_eq!(second.children[0].value, "SAMU");
+    }
 }
