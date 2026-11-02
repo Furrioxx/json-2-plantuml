@@ -25,13 +25,35 @@ impl Node {
         Node::new(NodeKind::Root, "")
     }
 
+    fn is_digit(&self, value: &str) -> bool {
+        match self.kind {
+            NodeKind::Digit => self.value == value,
+            _ => false,
+        }
+    }
+
     pub fn insert(&mut self, number: &str, name: &str) {
         let mut current = self;
 
         for digit in number.chars() {
-            current.children.push(Node::new(NodeKind::Digit, &digit.to_string()));
-            let last = current.children.len() - 1;
-            current = &mut current.children[last];
+            let value = digit.to_string();
+            let mut position = None;
+
+            for (index, child) in current.children.iter().enumerate() {
+                if child.is_digit(&value) {
+                    position = Some(index);
+                }
+            }
+
+            let index = match position {
+                Some(index) => index,
+                None => {
+                    current.children.push(Node::new(NodeKind::Digit, &value));
+                    current.children.len() - 1
+                }
+            };
+
+            current = &mut current.children[index];
         }
 
         current.children.push(Node::new(NodeKind::Name, name));
