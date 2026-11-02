@@ -1,6 +1,8 @@
 #[derive(Debug)]
 enum NodeKind {
     Root,
+    Digit,
+    Name,
 }
 
 #[derive(Debug)]
@@ -11,12 +13,22 @@ pub struct Node {
 }
 
 impl Node {
-    pub fn root() -> Self {
-        Self {
-            kind: NodeKind::Root,
-            value: String::new(),
+    fn new(kind: NodeKind, value: &str) -> Node {
+        Node {
+            kind,
+            value: String::from(value),
             children: Vec::new(),
         }
+    }
+
+    pub fn root() -> Node {
+        Node::new(NodeKind::Root, "")
+    }
+
+    pub fn insert(&mut self, number: &str, name: &str) {
+        let mut digit = Node::new(NodeKind::Digit, number);
+        digit.children.push(Node::new(NodeKind::Name, name));
+        self.children.push(digit);
     }
 }
 
