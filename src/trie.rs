@@ -63,6 +63,28 @@ impl Node {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::json::import_json_file;
+
+    fn find_name(root: &Node, number: &str) -> Option<String> {
+        let mut current = root;
+
+        for digit in number.chars() {
+            let mut next = None;
+            for child in &current.children {
+                if child.is_digit(&digit.to_string()) {
+                    next = Some(child);
+                }
+            }
+            current = next?;
+        }
+
+        for child in &current.children {
+            if let NodeKind::Name = child.kind {
+                return Some(child.value.clone());
+            }
+        }
+        None
+    }
 
     #[test]
     fn root_should_be_empty() {
@@ -143,5 +165,23 @@ mod tests {
         let one = &root.children[0];
         assert_eq!(one.children.len(), 2);
         assert!(one.children[0].children.is_empty());
+    }
+
+    #[test]
+    fn insert_contacts_from_json_should_find_each_name() {
+        let contacts = import_json_file("01_subject_example").expect("subject example should load");
+        let mut root = Node::root();
+
+        for contact in &contacts {
+            root.insert(contact.nb(), contact.name());
+        }
+
+        assert_eq!(root.children.len(), 2);
+        for contact in &contacts {
+            assert_eq!(
+                find_name(&root, contact.nb()),
+                Some(contact.name().to_string())
+            );
+        }
     }
 }
