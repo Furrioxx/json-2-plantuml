@@ -1,10 +1,12 @@
 #![forbid(unsafe_code)]
 
+use crate::trie::Node;
 use crate::user_info::UserInfo;
 
 pub mod json;
 pub mod input;
 pub mod user_info;
+pub mod trie;
 
 pub fn run(){
     let mut is_loaded: bool = false;
@@ -24,5 +26,10 @@ pub fn run(){
         };
     }
 
-    println!("{:?}", json_collection)
+    let mut root = Node::root();
+    for contact in &json_collection {
+        root.insert(contact.nb(), contact.name());
+    }
+
+    println!("{root:#?}");
 }
