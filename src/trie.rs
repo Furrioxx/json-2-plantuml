@@ -87,4 +87,15 @@ mod tests {
         assert_eq!(second.value, "5");
         assert_eq!(second.children[0].value, "SAMU");
     }
+
+    #[test]
+    fn insert_numbers_with_common_prefix_should_share_nodes() {
+        let mut root = Node::root();
+
+        root.insert("15", "SAMU");
+        root.insert("17", "Police");
+
+        assert_eq!(root.children.len(), 1);
+        assert_eq!(root.children[0].children.len(), 2);
+    }
 }
