@@ -120,4 +120,28 @@ mod tests {
         assert_eq!(root.children.len(), 1);
         assert_eq!(root.children[0].children.len(), 2);
     }
+
+    #[test]
+    fn insert_number_extending_another_should_keep_both_names() {
+        let mut root = Node::root();
+
+        root.insert("15", "SAMU");
+        root.insert("158", "Test");
+
+        let five = &root.children[0].children[0];
+        assert_eq!(five.children[0].value, "SAMU");
+        assert_eq!(five.children[1].value, "8");
+    }
+
+    #[test]
+    fn insert_should_never_follow_a_name_node() {
+        let mut root = Node::root();
+
+        root.insert("1", "5");
+        root.insert("15", "SAMU");
+
+        let one = &root.children[0];
+        assert_eq!(one.children.len(), 2);
+        assert!(one.children[0].children.is_empty());
+    }
 }
