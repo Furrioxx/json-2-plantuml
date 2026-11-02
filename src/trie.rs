@@ -35,4 +35,25 @@ mod tests {
         assert_eq!(root.value, "");
         assert!(root.children.is_empty());
     }
+
+    #[test]
+    fn insert_one_digit_number_should_create_digit_then_name() {
+        let mut root = Node::root();
+
+        root.insert("7", "Police");
+
+        assert_eq!(root.children.len(), 1);
+        let digit = &root.children[0];
+        match digit.kind {
+            NodeKind::Digit => {}
+            _ => panic!("first node should be of kind Digit"),
+        }
+        assert_eq!(digit.value, "7");
+        let name = &digit.children[0];
+        match name.kind {
+            NodeKind::Name => {}
+            _ => panic!("last node should be of kind Name"),
+        }
+        assert_eq!(name.value, "Police");
+    }
 }
