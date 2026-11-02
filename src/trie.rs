@@ -26,9 +26,15 @@ impl Node {
     }
 
     pub fn insert(&mut self, number: &str, name: &str) {
-        let mut digit = Node::new(NodeKind::Digit, number);
-        digit.children.push(Node::new(NodeKind::Name, name));
-        self.children.push(digit);
+        let mut current = self;
+
+        for digit in number.chars() {
+            current.children.push(Node::new(NodeKind::Digit, &digit.to_string()));
+            let last = current.children.len() - 1;
+            current = &mut current.children[last];
+        }
+
+        current.children.push(Node::new(NodeKind::Name, name));
     }
 }
 
