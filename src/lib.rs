@@ -32,5 +32,7 @@ pub fn run(){
         insert(&mut trees, contact.nb(), contact.name());
     }
 
+    plantuml::write_plantuml(&trees);
+
     println!("{trees:#?}");
 }
