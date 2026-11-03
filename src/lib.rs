@@ -1,6 +1,6 @@
 #![forbid(unsafe_code)]
 
-use crate::trie::Node;
+use crate::trie::{insert, Node};
 use crate::user_info::UserInfo;
 
 pub mod json;
@@ -26,10 +26,10 @@ pub fn run(){
         };
     }
 
-    let mut root = Node::root();
+    let mut trees: Vec<Node> = Vec::new();
     for contact in &json_collection {
-        root.insert(contact.nb(), contact.name());
+        insert(&mut trees, contact.nb(), contact.name());
     }
 
-    println!("{root:#?}");
+    println!("{trees:#?}");
 }
