@@ -1,3 +1,5 @@
+use crate::trie::Node;
+
 struct MockNode {
     value: String,
     children: Vec<MockNode>,
