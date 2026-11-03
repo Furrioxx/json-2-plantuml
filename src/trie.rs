@@ -60,6 +60,33 @@ impl Node {
     }
 }
 
+pub fn insert(trees: &mut Vec<Node>, number: &str, name: &str) {
+    let mut current = trees;
+
+    for digit in number.chars() {
+        let value = digit.to_string();
+        let mut position = None;
+
+        for (index, child) in current.iter().enumerate() {
+            if child.is_digit(&value) {
+                position = Some(index);
+            }
+        }
+
+        let index = match position {
+            Some(index) => index,
+            None => {
+                current.push(Node::new(NodeKind::Digit, &value));
+                current.len() - 1
+            }
+        };
+
+        current = &mut current[index].children;
+    }
+
+    current.push(Node::new(NodeKind::Name, name));
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
