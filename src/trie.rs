@@ -163,6 +163,15 @@ mod tests {
     }
 
     #[test]
+    fn insert_empty_number_should_be_ignored() {
+        let mut trees = Vec::new();
+
+        insert(&mut trees, "", "Nobody");
+
+        assert!(trees.is_empty());
+    }
+
+    #[test]
     fn insert_contacts_from_json_should_find_each_name() {
         let contacts = import_json_file("01_subject_example").expect("subject example should load");
         let mut trees = Vec::new();
