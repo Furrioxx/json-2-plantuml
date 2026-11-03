@@ -92,20 +92,20 @@ mod tests {
     use super::*;
     use crate::json::import_json_file;
 
-    fn find_name(root: &Node, number: &str) -> Option<String> {
-        let mut current = root;
+    fn find_name(trees: &[Node], number: &str) -> Option<String> {
+        let mut current = trees;
 
         for digit in number.chars() {
             let mut next = None;
-            for child in &current.children {
+            for child in current {
                 if child.is_digit(&digit.to_string()) {
                     next = Some(child);
                 }
             }
-            current = next?;
+            current = &next?.children;
         }
 
-        for child in &current.children {
+        for child in current {
             if let NodeKind::Name = child.kind {
                 return Some(child.value.clone());
             }
@@ -160,11 +160,11 @@ mod tests {
 
     #[test]
     fn insert_multi_digit_number_should_create_one_node_per_digit() {
-        let mut root = Node::root();
+        let mut trees = Vec::new();
 
-        root.insert("15", "SAMU");
+        insert(&mut trees, "15", "SAMU");
 
-        let first = &root.children[0];
+        let first = &trees[0];
         assert_eq!(first.value, "1");
         let second = &first.children[0];
         assert_eq!(second.value, "5");
@@ -173,35 +173,35 @@ mod tests {
 
     #[test]
     fn insert_numbers_with_common_prefix_should_share_nodes() {
-        let mut root = Node::root();
+        let mut trees = Vec::new();
 
-        root.insert("15", "SAMU");
-        root.insert("17", "Police");
+        insert(&mut trees, "15", "SAMU");
+        insert(&mut trees, "17", "Police");
 
-        assert_eq!(root.children.len(), 1);
-        assert_eq!(root.children[0].children.len(), 2);
+        assert_eq!(trees.len(), 1);
+        assert_eq!(trees[0].children.len(), 2);
     }
 
     #[test]
     fn insert_number_extending_another_should_keep_both_names() {
-        let mut root = Node::root();
+        let mut trees = Vec::new();
 
-        root.insert("15", "SAMU");
-        root.insert("158", "Test");
+        insert(&mut trees, "15", "SAMU");
+        insert(&mut trees, "158", "Test");
 
-        let five = &root.children[0].children[0];
+        let five = &trees[0].children[0];
         assert_eq!(five.children[0].value, "SAMU");
         assert_eq!(five.children[1].value, "8");
     }
 
     #[test]
     fn insert_should_never_follow_a_name_node() {
-        let mut root = Node::root();
+        let mut trees = Vec::new();
 
-        root.insert("1", "5");
-        root.insert("15", "SAMU");
+        insert(&mut trees, "1", "5");
+        insert(&mut trees, "15", "SAMU");
 
-        let one = &root.children[0];
+        let one = &trees[0];
         assert_eq!(one.children.len(), 2);
         assert!(one.children[0].children.is_empty());
     }
@@ -209,16 +209,16 @@ mod tests {
     #[test]
     fn insert_contacts_from_json_should_find_each_name() {
         let contacts = import_json_file("01_subject_example").expect("subject example should load");
-        let mut root = Node::root();
+        let mut trees = Vec::new();
 
         for contact in &contacts {
-            root.insert(contact.nb(), contact.name());
+            insert(&mut trees, contact.nb(), contact.name());
         }
 
-        assert_eq!(root.children.len(), 2);
+        assert_eq!(trees.len(), 2);
         for contact in &contacts {
             assert_eq!(
-                find_name(&root, contact.nb()),
+                find_name(&trees, contact.nb()),
                 Some(contact.name().to_string())
             );
         }
