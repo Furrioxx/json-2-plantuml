@@ -29,6 +29,10 @@ impl Node {
 }
 
 pub fn insert(trees: &mut Vec<Node>, number: &str, name: &str) {
+    if number.is_empty() {
+        return;
+    }
+
     let mut current = trees;
 
     for digit in number.chars() {
