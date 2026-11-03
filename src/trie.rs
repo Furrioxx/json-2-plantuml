@@ -100,12 +100,12 @@ mod tests {
 
     #[test]
     fn insert_one_digit_number_should_create_digit_then_name() {
-        let mut root = Node::root();
+        let mut trees = Vec::new();
 
-        root.insert("7", "Police");
+        insert(&mut trees, "7", "Police");
 
-        assert_eq!(root.children.len(), 1);
-        let digit = &root.children[0];
+        assert_eq!(trees.len(), 1);
+        let digit = &trees[0];
         match digit.kind {
             NodeKind::Digit => {}
             _ => panic!("first node should be of kind Digit"),
