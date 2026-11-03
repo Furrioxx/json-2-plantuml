@@ -147,6 +147,18 @@ mod tests {
     }
 
     #[test]
+    fn insert_numbers_with_different_first_digit_should_create_two_trees() {
+        let mut trees = Vec::new();
+
+        insert(&mut trees, "15", "SAMU");
+        insert(&mut trees, "04", "Alice");
+
+        assert_eq!(trees.len(), 2);
+        assert_eq!(trees[0].value, "1");
+        assert_eq!(trees[1].value, "0");
+    }
+
+    #[test]
     fn insert_multi_digit_number_should_create_one_node_per_digit() {
         let mut root = Node::root();
 
