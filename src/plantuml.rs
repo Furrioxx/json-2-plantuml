@@ -108,3 +108,63 @@ pub fn write_plantuml(trees: &[Node]) {
     }
 }
 
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::trie::insert;
+
+    #[test]
+    fn test_generate_empty_plantuml() {
+        let trees: Vec<Node> = Vec::new();
+
+        let result = generate_plantuml(&trees);
+
+        let expected = "@startmindmap\n@endmindmap\n";
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_generate_single_number() {
+        let mut trees: Vec<Node> = Vec::new();
+
+        insert(&mut trees, "15", "SAMU");
+
+        let result = generate_plantuml(&trees);
+
+        let expected = concat!(
+            "@startmindmap\n",
+            "* 1\n",
+            "** 5\n",
+            "*** SAMU\n",
+            "@endmindmap\n"
+        );
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_generate_shared_prefix() {
+        let mut trees: Vec<Node> = Vec::new();
+
+        insert(&mut trees, "15", "SAMU");
+        insert(&mut trees, "17", "Police");
+
+        let result = generate_plantuml(&trees);
+
+        let expected = concat!(
+            "@startmindmap\n",
+            "* 1\n",
+            "** 5\n",
+            "*** SAMU\n",
+            "** 7\n",
+            "*** Police\n",
+            "@endmindmap\n"
+        );
+
+        assert_eq!(result, expected);
+    }
+}
+
