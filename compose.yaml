@@ -1,0 +1,6 @@
+services:
+  plantuml:
+    image: plantuml/plantuml:latest
+    volumes:
+      - ./output:/workspace
+    command: ["-tsvg", "/workspace/output.puml"]

@@ -26,6 +26,14 @@ impl Node {
             _ => false,
         }
     }
+
+    pub fn value(&self) -> &str {
+        return &self.value;
+    }
+
+    pub fn children(&self) -> &[Node] {
+        return &self.children;
+    }
 }
 
 pub fn insert(trees: &mut Vec<Node>, number: &str, name: &str) {
