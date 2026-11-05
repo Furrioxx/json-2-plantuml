@@ -1,0 +1,23 @@
+[
+  { "name": "Alice Martin", "nb": "0612345678" },
+  { "name": "Bob Dupont", "nb": "0623456789" },
+  { "name": "Chloé Bernard", "nb": "0734567890" },
+  { "name": "David Petit", "nb": "0745678901" },
+  { "name": "Emma Robert", "nb": "0156789012" },
+  { "name": "François Richard", "nb": "0267890123" },
+  { "name": "Gabrielle Durand", "nb": "0378901234" },
+  { "name": "Hugo Leroy", "nb": "0472345678" },
+  { "name": "Inès Moreau", "nb": "0583456789" },
+  { "name": "Julien Simon", "nb": "0987654321" },
+  { "name": "SAMU", "nb": "15" },
+  { "name": "Police secours", "nb": "17" },
+  { "name": "Pompiers", "nb": "18" },
+  { "name": "Numéro d'urgence européen", "nb": "112" },
+  { "name": "Urgence personnes sourdes et malentendantes", "nb": "114" },
+  { "name": "SAMU social", "nb": "115" },
+  { "name": "Enfance en danger", "nb": "119" },
+  { "name": "Enfants disparus", "nb": "116000" },
+  { "name": "Urgences aéronautiques", "nb": "191" },
+  { "name": "Sauvetage en mer", "nb": "196" },
+  { "name": "Alerte attentat / alerte enlèvement", "nb": "197" }
+]
